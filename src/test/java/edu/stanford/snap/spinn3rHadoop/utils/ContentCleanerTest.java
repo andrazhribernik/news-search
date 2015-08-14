@@ -19,4 +19,22 @@ public class ContentCleanerTest {
 				+ "post text"), "pre text  post text");
 
 	}
+	
+	@Test
+	public void testCharactersCleaner() {
+		ContentCleaner cc = new ContentCleaner();
+		Assert.assertEquals(cc.charactersCleaner("test text"), "test text");
+		Assert.assertEquals(cc.charactersCleaner("??? ??? ???????"), "");
+		Assert.assertEquals(cc.charactersCleaner("what is this text about!?? knowbody knows!"), "what is this text about!?? knowbody knows!");
+		Assert.assertEquals(cc.charactersCleaner("One more test????? ???? ???? ab??b ab????a"), "One more test ab??b aba");
+	}
+	
+	@Test
+	public void testHtmlCleaner() {
+		ContentCleaner cc = new ContentCleaner();
+		Assert.assertEquals(cc.htmlCleaner("test text"), "test text");
+		
+		Assert.assertEquals(cc.htmlCleaner("\" size=\"39\" onclick=\"highlight(getelementbyid('html-code')); apitrack('copy_image_html');\" /> enviar mediante correo electrónico "), 
+										   "\"  enviar mediante correo electrónico ");
+	}
 }
