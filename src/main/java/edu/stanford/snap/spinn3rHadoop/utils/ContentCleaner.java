@@ -18,6 +18,9 @@ public class ContentCleaner {
 	}
 	
 	public String htmlCleaner(String text) {
+		if (text.indexOf('>') < 0) 
+			return text;
+		
 		String[] textSplited = text.split(">");
 		for (int i = 0; i < textSplited.length; i++) {
 			int beginIndex = (textSplited[i].length() > HTML_WINDOW_SIZE) ? textSplited[i].length() - HTML_WINDOW_SIZE : 0;
@@ -45,7 +48,27 @@ public class ContentCleaner {
 	}
 	
 	public String wordpressCleaner(String text) {
-		return text.replaceAll("\\[.{1,100}\\]", "");
+		return text.replaceAll("\\[.{1,100}?\\]", "");
 	}
-
+	
+	public static int cleanContent(Spinn3rDocument doc, boolean includeCharacters) {
+		String content = doc.content;
+		
+		ContentCleaner cc = new ContentCleaner();
+		if (includeCharacters) {
+			content = cc.charactersCleaner(content);
+		}
+		content = cc.cssCleaner(content);
+		content = cc.htmlCleaner(content);
+		content = cc.wordpressCleaner(content);
+		
+		int numberOfChangedCharacters = doc.content.length() - content.length();
+		doc.setContent(content);;
+		
+		return numberOfChangedCharacters;
+	}
+	
+	public static int cleanContent(Spinn3rDocument doc) {
+		return cleanContent(doc, false);
+	}
 }
