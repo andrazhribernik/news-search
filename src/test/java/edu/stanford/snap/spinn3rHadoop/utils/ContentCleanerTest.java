@@ -36,5 +36,21 @@ public class ContentCleanerTest {
 		
 		Assert.assertEquals(cc.htmlCleaner("\" size=\"39\" onclick=\"highlight(getelementbyid('html-code')); apitrack('copy_image_html');\" /> enviar mediante correo electrónico "), 
 										   "\"  enviar mediante correo electrónico ");
+		Assert.assertEquals(cc.htmlCleaner("new: craziest celebrity twitter pics\" width=\"101\" height=\"56\" /> new: craziest celebrity twitter pics\">\""), 
+										   "new: craziest celebrity twitter pics\"  new: craziest celebrity twitter pics\"\"");
+		Assert.assertEquals(cc.htmlCleaner("her own . meta itemprop = `` datePublished '' content = `` 2014-02-05 17:50:38 '' > Mass"), 
+				   						   "her own . Mass");
+		
+		Assert.assertEquals(cc.htmlCleaner("her own . meta itemprop = `` datePublished '' content = `` 2014-02-05 17:50:38 '' > Mass her own . meta itemprop = `` datePublished '' content = `` 2014-02-05 17:50:38 '' > Mass"), 
+				   						   "her own . Mass her own . Mass");
+		
+	}
+	
+	@Test
+	public void testWordpressCleaner() {
+		ContentCleaner cc = new ContentCleaner();
+		Assert.assertEquals(cc.wordpressCleaner("test text"), "test text");
+		Assert.assertEquals(cc.wordpressCleaner("allowed to go on. [ youtube={jumble of numbers after = in url} ] i thought"), 
+												"allowed to go on.  i thought");
 	}
 }
