@@ -22,4 +22,11 @@ public class TextVsSpamClassifierTest {
 		Assert.assertEquals(6, classifier.getNumberOfWords("First sencetence. Second Sentence. Third sentence."));
 		Assert.assertEquals(2, classifier.getNumberOfWords("First sencetence"));
 	}
+	
+	@Test
+	public void testRelativeNumberOfStopwords() {
+		TextVsSpamClassifier classifier = new TextVsSpamClassifier();
+		Assert.assertEquals(0.4, classifier.getRelativeNumberOfStopwords("This is a great day."));
+		Assert.assertEquals(0, classifier.getRelativeNumberOfStopwords("First"));
+	}
 }
