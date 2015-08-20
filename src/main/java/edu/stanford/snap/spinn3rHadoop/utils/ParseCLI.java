@@ -448,6 +448,7 @@ public class ParseCLI {
 		System.out.println("-removeNoQuotes: " + in.hasOption("removeNoQuotes"));
 		System.out.println("-caseInsensitive: " + in.hasOption("caseInsensitive"));
 		System.out.println("-contentCleaner: " + (in.hasOption("contentCleaner") ? (in.getOptionValue("contentCleaner") != null ? in.getOptionValue("contentCleaner") : in.hasOption("contentCleaner")) : false));
+		System.out.println("-removeSpam: " + in.hasOption("removeSpam"));
 		System.out.println("***** END **********************************************************************************************************************************************");
 	}
 
